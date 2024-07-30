@@ -93,7 +93,7 @@ async function main() {
 
   const {packages, forReal, debug} = argv;
 
-  if (debug === false) {
+  if (!debug) {
     const currBranchName = await execHelper('git rev-parse --abbrev-ref HEAD');
     const isPristine = (await execHelper('git status --porcelain')) === '';
     if (currBranchName !== 'main' || isPristine === false) {
@@ -104,7 +104,7 @@ async function main() {
   }
 
   let pkgNames = packages;
-  if (Array.isArray(packages) === false) {
+  if (!Array.isArray(packages)) {
     pkgNames = [packages];
   }
   const spinner = ora(
